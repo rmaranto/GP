@@ -86,3 +86,34 @@ Reemplaza la función `send_sms` en `app.py` con el proveedor que uses:
 - AWS SNS
 
 Sugerencia: usa variables de entorno para credenciales (`SMS_API_KEY`, `SMS_SENDER_ID`, etc.).
+
+
+## Publicación definitiva (producción)
+
+Este repo ya incluye despliegue listo para Render y Docker:
+
+- `render.yaml` para despliegue automático en Render.
+- `Dockerfile` para ejecutar en cualquier VPS/container.
+
+### Opción A: Render (recomendada)
+
+1. Sube este repositorio a GitHub.
+2. En Render selecciona **New + > Blueprint**.
+3. Conecta tu repo y confirma el deploy.
+4. Render leerá `render.yaml` y publicará automáticamente.
+5. URL final: `https://<tu-servicio>.onrender.com/docs`
+
+### Opción B: Docker en VPS
+
+```bash
+docker build -t fila-virtual-sms .
+docker run -d --name fila-virtual-sms -p 80:10000 fila-virtual-sms
+```
+
+URL final: `http://IP_PUBLICA/docs`
+
+### Checklist para que sí abra públicamente
+
+- Abrir puerto 80 o 443 en firewall/security group.
+- Mantener el servicio escuchando en `0.0.0.0`.
+- Si usas dominio, apuntar DNS a tu IP o URL de Render.
